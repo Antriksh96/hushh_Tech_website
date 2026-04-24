@@ -1,10 +1,4 @@
-/**
- * Signup Page — Revamped
- * Apple iOS colors, Playfair Display headings, proper English capitalization.
- * Matches Home + Fund A + Community + Profile + Login design language.
- * Logic stays in logic.ts.
- */
-import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { useSignupLogic } from "./logic";
 import HushhLogo from "../../components/images/Hushhogo.png";
 import HushhTechCta, {
@@ -16,10 +10,12 @@ import HushhTechHeader from "../../components/hushh-tech-header/HushhTechHeader"
 import HushhTechFooter from "../../components/hushh-tech-footer/HushhTechFooter";
 import AuthBootingScreen from "../../components/auth/AuthBootingScreen";
 
-/* ── Playfair heading style ── */
 const playfair = { fontFamily: "'Playfair Display', serif" };
 
 export default function SignupPage() {
+  // TODO: Replace with real auth config check when environment variables are available
+  const isAuthConfigured = false;
+
   const {
     isLoading,
     isSigningIn,
@@ -28,6 +24,9 @@ export default function SignupPage() {
     handleAppleSignIn,
     handleGoogleSignIn,
   } = useSignupLogic();
+
+  const isDisabled = !isAuthConfigured || isSigningIn;
+  const disabledClass = "opacity-50 cursor-not-allowed pointer-events-none";
 
   if (isLoading) {
     return (
@@ -40,11 +39,11 @@ export default function SignupPage() {
 
   return (
     <div className="bg-white text-gray-900 min-h-screen antialiased flex flex-col selection:bg-hushh-blue selection:text-white">
-      {/* ═══ Common Header ═══ */}
       <HushhTechHeader />
 
       <main className="px-6 flex-grow max-w-md mx-auto w-full flex flex-col justify-center pb-12">
-        {/* ── Logo ── */}
+        
+        {/* Logo */}
         <section className="flex justify-center pt-16 pb-8">
           <Link to="/">
             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#1c1c1e] to-[#2c2c2e] flex items-center justify-center overflow-hidden border border-black/5">
@@ -57,7 +56,7 @@ export default function SignupPage() {
           </Link>
         </section>
 
-        {/* ── Title ── */}
+        {/* Title */}
         <section className="pb-10">
           <h1
             className="text-[2.5rem] leading-[1.1] font-normal text-black tracking-tight text-center font-serif"
@@ -71,42 +70,66 @@ export default function SignupPage() {
           </p>
         </section>
 
-        {/* ── Sign-up Buttons ── */}
-        <section className="space-y-3 mb-10">
+        {/* Buttons */}
+        <section className="space-y-3 mb-6">
           <HushhTechCta
             variant={HushhTechCtaVariant.BLACK}
-            onClick={handleAppleSignIn}
-            disabled={isSigningIn}
+            onClick={() => {
+              if (isDisabled) return;
+              handleAppleSignIn();
+            }}
+            disabled={isDisabled}
+            className={isDisabled ? disabledClass : ""}
+            aria-disabled={isDisabled}
+            title={isDisabled ? "Authentication unavailable" : undefined}
           >
             <FaApple className="text-lg" />
-            <span>Continue with Apple</span>
+            <span>
+              {isSigningIn ? "Signing in..." : "Continue with Apple"}
+            </span>
           </HushhTechCta>
 
           <HushhTechCta
             variant={HushhTechCtaVariant.WHITE}
-            onClick={handleGoogleSignIn}
-            disabled={isSigningIn}
+            onClick={() => {
+              if (isDisabled) return;
+              handleGoogleSignIn();
+            }}
+            disabled={isDisabled}
+            className={isDisabled ? disabledClass : ""}
+            aria-disabled={isDisabled}
+            title={isDisabled ? "Authentication unavailable" : undefined}
           >
             <FcGoogle className="text-lg" />
-            <span>Continue with Google</span>
+            <span>
+              {isSigningIn ? "Signing in..." : "Continue with Google"}
+            </span>
           </HushhTechCta>
 
-          {oauthError ? (
+          {/* Helper message */}
+          {!isAuthConfigured && (
+            <p className="text-xs text-gray-400 text-center">
+              Authentication is currently unavailable. Please try again later.
+            </p>
+          )}
+
+          {/* Error block */}
+          {oauthError && (
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              <p>{oauthError}</p>
-              {oauthFallbackUrl ? (
+              <p>Authentication is currently unavailable. Please try again later.</p>
+              {oauthFallbackUrl && (
                 <a
                   href={oauthFallbackUrl}
                   className="mt-2 inline-flex font-medium underline underline-offset-2"
                 >
-                  Continue on the supported sign-up host
+                  Continue on the supported host
                 </a>
-              ) : null}
+              )}
             </div>
-          ) : null}
+          )}
         </section>
 
-        {/* ── Login link ── */}
+        {/* Login link */}
         <div className="text-center">
           <p className="text-sm text-gray-500 font-light">
             Already have an account?{" "}
@@ -119,7 +142,7 @@ export default function SignupPage() {
           </p>
         </div>
 
-        {/* ── Trust Badges ── */}
+        {/* Trust */}
         <section className="flex flex-col items-center justify-center text-center gap-2 pt-16 pb-4">
           <div className="flex items-center gap-1">
             <span className="material-symbols-outlined text-[12px] text-hushh-blue">
@@ -131,7 +154,7 @@ export default function SignupPage() {
           </div>
         </section>
 
-        {/* ── Terms Footer ── */}
+        {/* Terms */}
         <p className="text-[11px] leading-[16px] text-gray-400 text-center font-light">
           By continuing, you agree to our{" "}
           <Link to="/terms" className="underline underline-offset-2">
@@ -144,7 +167,6 @@ export default function SignupPage() {
         </p>
       </main>
 
-      {/* ═══ Common Footer ═══ */}
       <HushhTechFooter />
     </div>
   );

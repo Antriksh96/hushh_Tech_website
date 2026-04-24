@@ -183,28 +183,32 @@ export const useLoginLogic = (): LoginLogic => {
   );
 
   /* Apple OAuth — prevent double-clicks */
-  const handleAppleSignIn = useCallback(async () => {
-    if (isSigningIn) return;
-    setIsSigningIn(true);
-    setOAuthError(null);
-    setOAuthFallbackUrl(null);
-    const result = await startOAuth("apple");
-    if (!result.ok) {
-      handleOAuthFailure(result);
-    }
-  }, [handleOAuthFailure, isSigningIn, startOAuth]);
+const isAuthConfigured = false;
+const handleGoogleSignIn = useCallback(async () => {
+  if (isSigningIn) return;
 
-  /* Google OAuth — prevent double-clicks */
-  const handleGoogleSignIn = useCallback(async () => {
-    if (isSigningIn) return;
-    setIsSigningIn(true);
-    setOAuthError(null);
-    setOAuthFallbackUrl(null);
-    const result = await startOAuth("google");
-    if (!result.ok) {
-      handleOAuthFailure(result);
-    }
-  }, [handleOAuthFailure, isSigningIn, startOAuth]);
+  // ✅ ADD THIS BLOCK ONLY
+  if (!isAuthConfigured) {
+    setOAuthError("Login is currently unavailable. Please try again later.");
+    return;
+  }
+
+  // 👇 KEEP ORIGINAL CODE SAME
+  setIsSigningIn(true);
+  setOAuthError(null);
+  setOAuthFallbackUrl(null);
+
+  const result = await startOAuth("google");
+
+  if (!result.ok) {
+    handleOAuthFailure(result);
+  }
+
+}, [handleOAuthFailure, isSigningIn, startOAuth]);
+
+const handleAppleSignIn = async () => {
+  setOAuthError("Apple login is currently unavailable");
+};
 
   // Compute isLoading: allow boot timeout OR absolute max timeout to force-show buttons.
   // The maxLoadingTimedOut acts as an absolute safety net — no matter what, after 5s

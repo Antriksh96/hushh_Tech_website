@@ -20,6 +20,7 @@ import AuthBootingScreen from "../../components/auth/AuthBootingScreen";
 const playfair = { fontFamily: "'Playfair Display', serif" };
 
 export default function LoginPage() {
+  const isAuthConfigured = false; // backend not configured
   const {
     isLoading,
     isSigningIn,
@@ -73,27 +74,49 @@ export default function LoginPage() {
 
         {/* ── Sign-in Buttons ── */}
         <section className="space-y-3 mb-10">
-          <HushhTechCta
-            variant={HushhTechCtaVariant.BLACK}
-            onClick={handleAppleSignIn}
-            disabled={isSigningIn}
-          >
-            <FaApple className="text-lg" />
-            <span>Continue with Apple</span>
-          </HushhTechCta>
+          {(() => {
+            const appleDisabled = !isAuthConfigured || isSigningIn;
+            const googleDisabled = !isAuthConfigured || isSigningIn;
+            const disabledClass = "opacity-50 cursor-not-allowed pointer-events-none";
 
-          <HushhTechCta
-            variant={HushhTechCtaVariant.WHITE}
-            onClick={handleGoogleSignIn}
-            disabled={isSigningIn}
-          >
-            <FcGoogle className="text-lg" />
-            <span>Continue with Google</span>
-          </HushhTechCta>
+            return (
+              <>
+                <HushhTechCta
+                  variant={HushhTechCtaVariant.BLACK}
+                  onClick={() => {
+                    if (appleDisabled) return;
+                    handleAppleSignIn();
+                  }}
+                  disabled={appleDisabled}
+                  className={appleDisabled ? disabledClass : ""}
+                  aria-disabled={appleDisabled}
+                  title={appleDisabled ? "Sign in unavailable" : undefined}
+                >
+                  <FaApple className="text-lg" />
+                  <span>{isSigningIn ? "Signing in..." : "Continue with Apple"}</span>
+                </HushhTechCta>
+
+                <HushhTechCta
+                  variant={HushhTechCtaVariant.WHITE}
+                  onClick={() => {
+                    if (googleDisabled) return;
+                    handleGoogleSignIn();
+                  }}
+                  disabled={googleDisabled}
+                  className={googleDisabled ? disabledClass : ""}
+                  aria-disabled={googleDisabled}
+                  title={googleDisabled ? "Sign in unavailable" : undefined}
+                >
+                  <FcGoogle className="text-lg" />
+                  <span>{isSigningIn ? "Signing in..." : "Continue with Google"}</span>
+                </HushhTechCta>
+              </>
+            );
+          })()}
 
           {oauthError ? (
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              <p>{oauthError}</p>
+              <p>Sign-in is temporarily unavailable. Please try again later.</p>
               {oauthFallbackUrl ? (
                 <a
                   href={oauthFallbackUrl}
