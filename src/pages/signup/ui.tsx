@@ -13,8 +13,7 @@ import AuthBootingScreen from "../../components/auth/AuthBootingScreen";
 const playfair = { fontFamily: "'Playfair Display', serif" };
 
 export default function SignupPage() {
-  // TODO: Replace with real auth config check when environment variables are available
-  const isAuthConfigured = false;
+  const isAuthConfigured = Boolean(import.meta.env.VITE_SUPABASE_URL);
 
   const {
     isLoading,
@@ -108,9 +107,7 @@ export default function SignupPage() {
 
           {/* Helper message */}
           {!isAuthConfigured && (
-            <p className="text-xs text-gray-400 text-center">
-              Authentication is currently unavailable. Please try again later.
-            </p>
+            <p>{oauthError}</p>
           )}
 
           {/* Error block */}

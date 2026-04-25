@@ -9,12 +9,12 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../resources/config/config";
-import {
-  redirectToUrl,
-  resolveOAuthHost,
-} from "../../auth/authHost";
+import { redirectToUrl, resolveOAuthHost } from "../../auth/authHost";
 import type { OAuthStartResult } from "../../auth/session";
-import { DEFAULT_AUTH_REDIRECT, sanitizeInternalRedirect } from "../../utils/security";
+import {
+  DEFAULT_AUTH_REDIRECT,
+  sanitizeInternalRedirect,
+} from "../../utils/security";
 import { useAuthSession } from "../../auth/AuthSessionProvider";
 import { normalizeLegacyOnboardingRedirectTarget } from "../../services/onboarding/flow";
 
@@ -42,18 +42,20 @@ export const useSignupLogic = (): SignupLogic => {
         window.location.pathname,
         window.location.search,
         config.redirect_url,
-        window.location.origin
+        window.location.origin,
       ),
-    []
+    [],
   );
   const shouldRedirectToSupportedHost = !hostResolution.supported;
+  // near top of the file
+  const isAuthConfigured = Boolean(import.meta.env.VITE_SUPABASE_URL);
 
   // Stable redirect path — computed once from URL params
   const { redirectPath, sanitizedRedirectPath } = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const sanitized = sanitizeInternalRedirect(
       params.get("redirect"),
-      DEFAULT_AUTH_REDIRECT
+      DEFAULT_AUTH_REDIRECT,
     );
     return {
       sanitizedRedirectPath: sanitized,
@@ -92,9 +94,14 @@ export const useSignupLogic = (): SignupLogic => {
 
     navigate(
       `${window.location.pathname}?redirect=${encodeURIComponent(redirectPath)}`,
-      { replace: true }
+      { replace: true },
     );
-  }, [navigate, redirectPath, sanitizedRedirectPath, shouldRedirectToSupportedHost]);
+  }, [
+    navigate,
+    redirectPath,
+    sanitizedRedirectPath,
+    shouldRedirectToSupportedHost,
+  ]);
 
   /* Auth session listener — redirect if already logged in */
   useEffect(() => {
@@ -118,20 +125,29 @@ export const useSignupLogic = (): SignupLogic => {
       setOAuthError(result.message);
       setOAuthFallbackUrl(result.redirectTo || null);
     },
-    []
+    [],
   );
 
-  /* Apple OAuth — prevent double-clicks */
   const handleAppleSignIn = useCallback(async () => {
     if (isSigningIn) return;
+
+    // ✅ ADD THIS GUARD
+    if (!isAuthConfigured) {
+      setOAuthError("Authentication is currently unavailable.");
+      return;
+    }
+
+    // 👇 KEEP ORIGINAL LOGIC
     setIsSigningIn(true);
     setOAuthError(null);
     setOAuthFallbackUrl(null);
+
     const result = await startOAuth("apple");
+
     if (!result.ok) {
       handleOAuthFailure(result);
     }
-  }, [handleOAuthFailure, isSigningIn, startOAuth]);
+  }, [handleOAuthFailure, isSigningIn, startOAuth, isAuthConfigured]);
 
   /* Google OAuth — prevent double-clicks */
   const handleGoogleSignIn = useCallback(async () => {

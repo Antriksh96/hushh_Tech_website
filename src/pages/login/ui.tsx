@@ -20,7 +20,7 @@ import AuthBootingScreen from "../../components/auth/AuthBootingScreen";
 const playfair = { fontFamily: "'Playfair Display', serif" };
 
 export default function LoginPage() {
-  const isAuthConfigured = false; // backend not configured
+  const isAuthConfigured = Boolean(import.meta.env.VITE_SUPABASE_URL);
   const {
     isLoading,
     isSigningIn,
@@ -77,7 +77,8 @@ export default function LoginPage() {
           {(() => {
             const appleDisabled = !isAuthConfigured || isSigningIn;
             const googleDisabled = !isAuthConfigured || isSigningIn;
-            const disabledClass = "opacity-50 cursor-not-allowed pointer-events-none";
+            const disabledClass =
+              "opacity-50 cursor-not-allowed pointer-events-none";
 
             return (
               <>
@@ -93,7 +94,9 @@ export default function LoginPage() {
                   title={appleDisabled ? "Sign in unavailable" : undefined}
                 >
                   <FaApple className="text-lg" />
-                  <span>{isSigningIn ? "Signing in..." : "Continue with Apple"}</span>
+                  <span>
+                    {isSigningIn ? "Signing in..." : "Continue with Apple"}
+                  </span>
                 </HushhTechCta>
 
                 <HushhTechCta
@@ -108,7 +111,9 @@ export default function LoginPage() {
                   title={googleDisabled ? "Sign in unavailable" : undefined}
                 >
                   <FcGoogle className="text-lg" />
-                  <span>{isSigningIn ? "Signing in..." : "Continue with Google"}</span>
+                  <span>
+                    {isSigningIn ? "Signing in..." : "Continue with Google"}
+                  </span>
                 </HushhTechCta>
               </>
             );

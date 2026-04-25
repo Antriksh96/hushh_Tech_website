@@ -93,7 +93,9 @@ const sanitizeForFilename = (value: string) => {
   return safe || "hushh-gold-card";
 };
 
-const buildGoldPassDescriptor = (input: WalletPassInput): GoldPassDescriptor => {
+const buildGoldPassDescriptor = (
+  input: WalletPassInput,
+): GoldPassDescriptor => {
   const content = buildWalletCardContent(input);
 
   return {
@@ -130,7 +132,7 @@ async function readWalletError(response: Response, fallback: string) {
 
 const submitWalletPassForm = (
   endpoint: string,
-  payload: ReturnType<typeof buildGoldPassPayload>
+  payload: ReturnType<typeof buildGoldPassPayload>,
 ) => {
   if (typeof document === "undefined") {
     throw new Error("Wallet pass downloads require a browser environment");
@@ -157,7 +159,7 @@ export const buildGoldPassPayload = (input: WalletPassInput) => {
 };
 
 export const buildGoldPassPreviewModel = (
-  input: WalletPassInput
+  input: WalletPassInput,
 ): WalletPreviewModel => {
   const descriptor = buildGoldPassDescriptor(input);
 
@@ -174,9 +176,7 @@ export const buildGoldPassPreviewModel = (
   };
 };
 
-export const isAppleWalletSupported = (
-  input: AppleWalletSupportInput = {}
-) => {
+export const isAppleWalletSupported = (input: AppleWalletSupportInput = {}) => {
   const nav = typeof navigator !== "undefined" ? navigator : undefined;
   const userAgent = input.userAgent ?? nav?.userAgent ?? "";
   const platform = input.platform ?? nav?.platform ?? "";
@@ -194,7 +194,7 @@ export const isAppleWalletSupported = (
 };
 
 export async function fetchGoogleWalletAvailability(
-  options: { force?: boolean } = {}
+  options: { force?: boolean } = {},
 ): Promise<GoogleWalletAvailability> {
   const { force = false } = options;
 
@@ -218,7 +218,8 @@ export async function fetchGoogleWalletAvailability(
       const availability: GoogleWalletAvailability = {
         available: Boolean(payload?.available),
         message:
-          typeof payload?.message === "string" && payload.message.trim().length > 0
+          typeof payload?.message === "string" &&
+          payload.message.trim().length > 0
             ? payload.message
             : GOOGLE_WALLET_SUPPORT_MESSAGE,
         provider:
@@ -239,7 +240,7 @@ export async function fetchGoogleWalletAvailability(
 }
 
 export async function requestHushhGoldPass(
-  input: WalletPassInput
+  input: WalletPassInput,
 ): Promise<WalletPassResult> {
   try {
     const response = await fetch(HUSHH_WALLET_ENDPOINT, {
@@ -249,33 +250,30 @@ export async function requestHushhGoldPass(
     });
 
     if (!response.ok) {
-      throw new Error("Wallet pass generation failed");
+      throw new Error(
+        await readWalletError(response, "Wallet pass generation failed"),
+      );
     }
 
     const blob = await response.blob();
     const filename = `${sanitizeForFilename(input.name)}-hushh-gold.pkpass`;
 
     return { blob, filename };
-
   } catch (e) {
-    console.warn("Wallet API not available");
+    console.warn("Wallet API not available, error:", e);
 
-    // return safe fallback (no crash)
-    return {
-      blob: new Blob(),
-      filename: "unavailable.pkpass",
-    };
+    throw new Error("Wallet pass generation is temporarily unavailable.");
   }
 }
 
 export async function downloadHushhGoldPass(
-  input: WalletPassInput
+  input: WalletPassInput,
 ): Promise<void> {
   submitWalletPassForm(HUSHH_WALLET_ENDPOINT, buildGoldPassPayload(input));
 }
 
 export async function requestGoogleWalletPass(
-  input: WalletPassInput
+  input: WalletPassInput,
 ): Promise<GoogleWalletResult> {
   const response = await fetch(HUSHH_GOOGLE_WALLET_ENDPOINT, {
     method: "POST",
@@ -285,7 +283,7 @@ export async function requestGoogleWalletPass(
 
   if (!response.ok) {
     throw new Error(
-      await readWalletError(response, "Google Wallet pass generation failed")
+      await readWalletError(response, "Google Wallet pass generation failed"),
     );
   }
 
@@ -304,7 +302,7 @@ export async function requestGoogleWalletPass(
 }
 
 export async function launchGoogleWalletPass(
-  input: WalletPassInput
+  input: WalletPassInput,
 ): Promise<void> {
   const result = await requestGoogleWalletPass(input);
 

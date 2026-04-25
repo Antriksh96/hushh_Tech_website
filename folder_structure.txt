@@ -1,0 +1,570 @@
+hushh_Tech_website
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── Dockerfile.gcp
+├── LICENSE
+├── NOTICE
+├── README.md
+├── SECURITY.md
+├── SUPPORT.md
+├── api
+│   ├── analytics
+│   │   └── realtime.js
+│   ├── career-application.js
+│   ├── delete-account-service.js
+│   ├── delete-account.js
+│   ├── email-templates
+│   │   └── pr-notification.js
+│   ├── enrich-preferences.js
+│   ├── gemini-ephemeral-token.js
+│   ├── generate-investor-profile.js
+│   ├── google-wallet-pass.js
+│   ├── metrics
+│   │   ├── send-report.js
+│   │   ├── service.js
+│   │   └── summary.js
+│   ├── public-investor-profile.js
+│   ├── send-email-notification.js
+│   ├── shared
+│   │   └── walletPassModel.js
+│   └── wallet-pass.js
+├── best_practices.md
+├── cloud-run
+│   ├── email-template-api
+│   │   ├── Dockerfile
+│   │   ├── emails
+│   │   ├── index.js
+│   │   ├── package-lock.json
+│   │   └── package.json
+│   └── ria-intelligence-api
+│       ├── Dockerfile
+│       ├── README.md
+│       ├── app
+│       ├── requirements.txt
+│       └── tests
+├── cloudbuild-prod.yaml
+├── cloudbuild-uat.yaml
+├── cloudbuild.yaml
+├── contentlayer.config.js
+├── custom.d.ts
+├── dangerfile.ts
+├── docs
+│   ├── A2A_PROTOCOL_IMPLEMENTATION.md
+│   ├── AGENTIC_NEGOTIATION_FLOW.md
+│   ├── CLAUDE_CODE_WORKFLOW.md
+│   ├── EMAIL_TEMPLATE_INLINE_ICON_IMPLEMENTATION.md
+│   ├── HUSHH_APPLE_WALLET_API.md
+│   ├── HUSHH_KYC_AGENT_PRODUCT_ONEPAGER.md
+│   ├── HUSHH_KYC_SLIDE_DIAGRAM.md
+│   ├── HUSHH_TECH_SECRET_RUNBOOK.md
+│   ├── HUSHH_TECH_SECURITY_AUDIT.md
+│   ├── HUSHH_USER_PROFILE_FIELDS.json
+│   ├── INVESTOR_GUIDE_DATA.json
+│   ├── KYC_ONBOARDING_ARCHITECTURE.md
+│   ├── KYC_PLAID_KT.md
+│   ├── METRICS_DASHBOARD_SETUP.md
+│   ├── MOBILE_UI_DESIGN_GUIDELINES.md
+│   ├── OPEN_SOURCE_SECRET_AUDIT.md
+│   ├── RIA_INTELLIGENCE_API.md
+│   └── archive
+│       ├── README.md
+│       └── src-pages
+├── eslint.config.js
+├── files
+│   ├── Vector.png
+│   ├── https_ 3
+│   │   └── lottiefiles.com
+│   ├── https_ 6
+│   │   └── lottiefiles.com
+│   ├── img (1).png
+│   ├── img.png
+│   └── lineGraph.svg
+├── folder_structure.txt
+├── hushh_api_reports
+│   ├── 00_REPORT_INDEX.csv
+│   ├── 01_endpoint_performance_detailed.csv
+│   ├── 02_error_log_detailed.csv
+│   ├── 03_daily_traffic_metrics.csv
+│   ├── 04_client_usage_breakdown.csv
+│   ├── 05_hourly_traffic_pattern.csv
+│   ├── 06_endpoint_performance_timeline.csv
+│   └── README.md
+├── index.html
+├── monitor-domain-verification.sh
+├── package-lock.json
+├── package-server.json
+├── package.json
+├── playstore-assets
+│   ├── PLAY_STORE_RELEASE_NOTES.txt
+│   ├── app-icon-512x512.png
+│   ├── feature-graphic-1024x500.png
+│   └── screenshots
+│       ├── screenshot1-home.png
+│       ├── screenshot2-features.png
+│       ├── screenshot3-fund.png
+│       ├── screenshot4-profile.png
+│       ├── tablet-10inch
+│       └── tablet-7inch
+├── postcss.config.js
+├── prompts.txt
+├── public
+│   ├── Apple_file.pdf
+│   ├── Data collection process.pdf
+│   ├── History_and_Milestone.pdf
+│   ├── Hushh Fund A - 27FCF.pdf
+│   ├── Strategy_and_Profit_Projection.pdf
+│   ├── alphabets27.pdf
+│   ├── cash-free-manifesto.pdf
+│   ├── favicon.ico
+│   ├── fund-documents
+│   │   ├── delaware-feeder-lpa.docx
+│   │   ├── investment-prospectus.docx
+│   │   ├── lp-master-lpa.docx
+│   │   └── ppm.docx
+│   ├── gif
+│   │   ├── apple-wallet.gif
+│   │   ├── google-wallet.gif
+│   │   ├── nda_approved.gif
+│   │   ├── nda_notApplied.gif
+│   │   ├── nda_pending.gif
+│   │   ├── nda_rejected.gif
+│   │   └── typing.gif
+│   ├── images
+│   │   ├── QRWallet.png
+│   │   ├── browserCompanion.png
+│   │   ├── dressImage.png
+│   │   ├── email-icons
+│   │   ├── fendiCards.png
+│   │   ├── hushh-logo-email.png
+│   │   ├── hushh-logo-new.png
+│   │   ├── media.png
+│   │   └── mobile.png
+│   ├── letter_to_shareholder.pdf
+│   ├── robots.txt
+│   └── sitemap.xml
+├── scripts
+│   ├── add-scroll-to-top-onboarding.cjs
+│   ├── backfill-onboarding-addresses.mjs
+│   ├── check-production.sh
+│   ├── ci
+│   │   ├── check-audit-regression.mjs
+│   │   ├── check-dco.sh
+│   │   ├── check-env-contract.mjs
+│   │   ├── check-pr-hygiene.mjs
+│   │   ├── env-contract.json
+│   │   ├── lint-ci.sh
+│   │   ├── orchestrate.sh
+│   │   ├── require-deploy-sha-on-main.sh
+│   │   ├── run-smoke.sh
+│   │   └── security-budget.json
+│   ├── create-security-issues.sh
+│   ├── deploy-gcp.sh
+│   ├── deploy-location-geocode.sh
+│   ├── deploy-ria-intelligence-api.sh
+│   ├── gcloud-devops-setup.sh
+│   ├── generate-robots.js
+│   ├── generate-sitemap.js
+│   ├── reduce-all-font-weights.cjs
+│   ├── reduce-font-weights.cjs
+│   ├── refresh-vertex-ai-token.sh
+│   ├── replace-tagline.cjs
+│   ├── security
+│   │   ├── open-source-audit.sh
+│   │   └── rewrite-history.sh
+│   ├── setup-cloud-scheduler-token-refresh.sh
+│   ├── setup-token-refresh-cron.sh
+│   ├── smoke-oauth-start.mjs
+│   ├── smoke-public-investor-profile.mjs
+│   ├── split-profile.cjs
+│   ├── test-address-inference.sh
+│   ├── test-hushh-profile-search.sh
+│   ├── test-nda-notification.sh
+│   ├── test-veo-api.sh
+│   ├── update-hushh-logo.cjs
+│   ├── update-supabase-auth-url.sh
+│   ├── update-tagline-comprehensive.cjs
+│   ├── update-tagline-invest.cjs
+│   ├── upload-to-supabase-storage.sh
+│   └── verify-gmail-message.cjs
+├── server.js
+├── src
+│   ├── App.tsx
+│   ├── auth
+│   │   ├── AuthSessionProvider.tsx
+│   │   ├── authHost.ts
+│   │   ├── routePolicy.ts
+│   │   └── session.ts
+│   ├── components
+│   │   ├── AccessControlManager.tsx
+│   │   ├── AccessTimer.tsx
+│   │   ├── AuthRequiredRoute.tsx
+│   │   ├── ChatPaymentModal.tsx
+│   │   ├── DeleteAccountModal.tsx
+│   │   ├── DeveloperSettings.tsx
+│   │   ├── FloatingContactBubble.tsx
+│   │   ├── Footer.tsx
+│   │   ├── GlobalNDAGate.tsx
+│   │   ├── GoogleAnalyticsRouteTracker.tsx
+│   │   ├── Hero.tsx
+│   │   ├── HushhIDHero.tsx
+│   │   ├── InvestorChatWidget.tsx
+│   │   ├── LanguageSwitcher.tsx
+│   │   ├── Leadership.tsx
+│   │   ├── LocationPermissionModal.tsx
+│   │   ├── MarketUpdateGallery.tsx
+│   │   ├── MobileBottomNav.tsx
+│   │   ├── NDADocumentModal.tsx
+│   │   ├── NDARequestModal.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── NdaForm.tsx
+│   │   ├── OnboardingShellAutoPadding.tsx
+│   │   ├── PaywallOverlay.tsx
+│   │   ├── PermissionHelpModal.tsx
+│   │   ├── Philosophy.tsx
+│   │   ├── PrimaryCtaButton.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── ReportCard.tsx
+│   │   ├── ReportDetail.tsx
+│   │   ├── ScrollToTop.tsx
+│   │   ├── WhyChooseSection.tsx
+│   │   ├── a2aPlayground
+│   │   ├── auth
+│   │   ├── config
+│   │   ├── hushh-tech-back-header
+│   │   ├── hushh-tech-cta
+│   │   ├── hushh-tech-faq-sheet
+│   │   ├── hushh-tech-footer
+│   │   ├── hushh-tech-header
+│   │   ├── hushh-tech-nav-drawer
+│   │   ├── images
+│   │   ├── investorProfile
+│   │   ├── kyc
+│   │   ├── onboarding
+│   │   ├── profile
+│   │   ├── receipt
+│   │   ├── ui
+│   │   └── wallet
+│   ├── content
+│   │   └── posts
+│   ├── data
+│   │   ├── career.ts
+│   │   ├── locationData.ts
+│   │   └── posts.ts
+│   ├── email-templates
+│   ├── hooks
+│   │   ├── useLocationDropdowns.ts
+│   │   └── useStockQuotes.ts
+│   ├── hushh-ai
+│   │   ├── core
+│   │   ├── data
+│   │   ├── di
+│   │   ├── domain
+│   │   ├── pages
+│   │   ├── presentation
+│   │   └── services
+│   ├── hushh-intelligence
+│   │   ├── core
+│   │   └── services
+│   ├── hushh-studio
+│   │   ├── App.tsx
+│   │   ├── README.md
+│   │   ├── hooks
+│   │   ├── pages
+│   │   ├── services
+│   │   └── types.ts
+│   ├── i18n
+│   │   ├── index.ts
+│   │   └── locales
+│   ├── index.css
+│   ├── kai
+│   │   ├── App.tsx
+│   │   ├── README.md
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── types.ts
+│   │   └── utils
+│   ├── kai-india
+│   │   ├── App.tsx
+│   │   ├── README.md
+│   │   ├── components
+│   │   ├── metadata.json
+│   │   ├── pages
+│   │   ├── services
+│   │   └── types.ts
+│   ├── lib
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── AuthCallback.tsx
+│   │   ├── Contact.tsx
+│   │   ├── UserRegistration.tsx
+│   │   ├── a2a-playground
+│   │   ├── ai-powered-berkshire
+│   │   ├── benefits
+│   │   ├── california-privacy-policy
+│   │   ├── career
+│   │   ├── career-privacy-policy
+│   │   ├── community
+│   │   ├── delete-account
+│   │   ├── developer-docs
+│   │   ├── discover-fund-a
+│   │   ├── document-viewer
+│   │   ├── eu-uk-privacy-policy
+│   │   ├── faq.tsx
+│   │   ├── home
+│   │   ├── hushh-user-profile
+│   │   ├── hushhid
+│   │   ├── hushhid-hero-demo.tsx
+│   │   ├── investor
+│   │   ├── investor-profile
+│   │   ├── kyc-demo
+│   │   ├── kyc-flow
+│   │   ├── kyc-form
+│   │   ├── kyc-verification
+│   │   ├── login
+│   │   ├── metrics
+│   │   ├── nda-admin
+│   │   ├── onboarding
+│   │   ├── privacy-policy
+│   │   ├── profile
+│   │   ├── receipt-generator
+│   │   ├── reports
+│   │   ├── sell-the-wall
+│   │   ├── services
+│   │   ├── sign-nda
+│   │   ├── signup
+│   │   ├── user-profile
+│   │   └── your-profile
+│   ├── resources
+│   │   ├── config
+│   │   └── resources.ts
+│   ├── scripts
+│   │   ├── generate_apple_secret.sh
+│   │   └── testReportsApi.js
+│   ├── services
+│   │   ├── access
+│   │   ├── analytics
+│   │   ├── authentication
+│   │   ├── investorProfile
+│   │   ├── location
+│   │   ├── nda
+│   │   ├── networkScore
+│   │   ├── onboarding
+│   │   ├── plaid
+│   │   ├── preferences
+│   │   ├── productUsage
+│   │   ├── profileSearch
+│   │   ├── reportService.ts
+│   │   ├── runtime
+│   │   ├── services.ts
+│   │   ├── storageBuckets.ts
+│   │   └── walletPass.ts
+│   ├── svg
+│   │   ├── companion.svg
+│   │   ├── googleIcon.svg
+│   │   ├── lockIcon.svg
+│   │   └── multiUser.svg
+│   ├── theme
+│   │   └── index.ts
+│   ├── types
+│   │   ├── a2aPlayground.ts
+│   │   ├── career.ts
+│   │   ├── global.d.ts
+│   │   ├── investorProfile.ts
+│   │   ├── kyc.ts
+│   │   ├── onboarding.ts
+│   │   ├── preferences.ts
+│   │   └── shadowProfile.ts
+│   ├── utils
+│   │   ├── dateFormatter.ts
+│   │   ├── devtools-guard.ts
+│   │   ├── emailUtils.ts
+│   │   ├── maskSensitiveData.ts
+│   │   ├── platform.ts
+│   │   ├── receiptUtils.ts
+│   │   ├── security.ts
+│   │   ├── useFooterVisibility.ts
+│   │   └── visitorId.ts
+│   └── vite-env.d.ts
+├── supabase
+│   ├── config.toml
+│   ├── functions
+│   │   ├── _shared
+│   │   ├── asset-report-create
+│   │   ├── ceo-calendar-booking
+│   │   ├── chat-check-access
+│   │   ├── chat-create-checkout
+│   │   ├── chat-verify-payment
+│   │   ├── claude-code-gen
+│   │   ├── coins-credit-notification
+│   │   ├── coins-deduction-notification
+│   │   ├── create-link-token
+│   │   ├── create-verification-session
+│   │   ├── delete-user-account
+│   │   ├── exchange-public-token
+│   │   ├── gemini-voice-token
+│   │   ├── generate-investor-profile
+│   │   ├── get-auth-numbers
+│   │   ├── get-balance
+│   │   ├── get-identity
+│   │   ├── get-locations
+│   │   ├── hushh-address-inference
+│   │   ├── hushh-ai-chat
+│   │   ├── hushh-dob-inference
+│   │   ├── hushh-location-geocode
+│   │   ├── identity-match
+│   │   ├── identity-verification-webhook
+│   │   ├── import_map.json
+│   │   ├── investments-holdings
+│   │   ├── investor-agent-mcp
+│   │   ├── investor-chat
+│   │   ├── investor-og-image
+│   │   ├── ios-build-tracker
+│   │   ├── kyc-agent-a2a
+│   │   ├── kyc-agent-a2a-protocol
+│   │   ├── kyc-agent-agentic
+│   │   ├── nda-admin-fetch
+│   │   ├── nda-signed-notification
+│   │   ├── nws-score-notification
+│   │   ├── onboarding-create-checkout
+│   │   ├── onboarding-verify-payment
+│   │   ├── sandbox-create-test-item
+│   │   ├── send-email-notification
+│   │   ├── signal-decision-report
+│   │   ├── signal-evaluate
+│   │   ├── signal-prepare
+│   │   ├── signal-return-report
+│   │   ├── stock-quotes
+│   │   └── veo-generate-video
+│   ├── manual-sql
+│   │   ├── README.md
+│   │   ├── hotfixes
+│   │   ├── migrations
+│   │   ├── schema
+│   │   └── test-data
+│   └── migrations
+│       ├── 20251201174931_remote_schema.sql
+│       ├── 20251203000000_create_investor_profiles.sql
+│       ├── 20251203000001_add_slug_and_public_access.sql
+│       ├── 20251204150116_create_public_chat_messages.sql
+│       ├── 20251204210000_create_agent_tables.sql
+│       ├── 20251204220000_create_background_tasks.sql
+│       ├── 20251205000000_create_onboarding_data.sql
+│       ├── 20251205120000_add_address_phone_country_code.sql
+│       ├── 20251205130000_add_address_country.sql
+│       ├── 20251205140000_update_current_step_constraint.sql
+│       ├── 20251205150000_add_privacy_settings.sql
+│       ├── 20251206000000_add_phone_validation.sql
+│       ├── 20251209000000_create_kyc_tables.sql
+│       ├── 20251209100000_create_kyc_auto_attestation_trigger.sql
+│       ├── 20251213000000_create_identity_verifications.sql
+│       ├── 20251213100000_update_identity_verifications.sql
+│       ├── 20251217000000_update_account_types.sql
+│       ├── 20251217100000_add_share_class_units.sql
+│       ├── 20251217200000_add_banking_info.sql
+│       ├── 20251221000000_create_ios_builds.sql
+│       ├── 20260102000000_create_agent_mailer_crm.sql
+│       ├── 20260103000000_create_assets_storage_bucket.sql
+│       ├── 20260105000000_create_intelligence_tables.sql
+│       ├── 20260106000000_create_hushh_ai_tables.sql
+│       ├── 20260106000001_add_metadata_to_hushh_ai_messages.sql
+│       ├── 20260107000000_create_user_product_usage.sql
+│       ├── 20260107100000_create_hushh_ai_cache_tables.sql
+│       ├── 20260107200000_add_message_metadata.sql
+│       ├── 20260116000000_create_hushh_agent_users.sql
+│       ├── 20260117000000_add_email_auth_to_hushh_agent.sql
+│       ├── 20260117200000_create_resume_analyses.sql
+│       ├── 20260127000000_create_user_enriched_profiles.sql
+│       ├── 20260127100000_add_ai_prefill_columns.sql
+│       ├── 20260127200000_add_gps_location_columns.sql
+│       ├── 20260127300000_add_ai_dob_columns.sql
+│       ├── 20260127400000_add_shadow_profile_column.sql
+│       ├── 20260127500000_fix_investor_profiles_rls.sql
+│       ├── 20260131000000_add_global_nda_columns.sql
+│       ├── 20260214173600_create_user_financial_data.sql
+│       ├── 20260216150414_remove_onboarding_steps_1_2.sql
+│       ├── 20260216154500_add_missing_schema_for_tests.sql
+│       ├── 20260216_add_plaid_access_token.sql
+│       ├── 20260218133200_fix_nda_rpc_use_nda_signatures_table.sql
+│       ├── 20260218134000_recreate_financial_and_onboarding_tables.sql
+│       ├── 20260218135000_recreate_all_remaining_tables.sql
+│       ├── 20260220110000_update_account_structure_constraint.sql
+│       ├── 20260221000000_expand_account_type_constraint.sql
+│       ├── 20260222000000_add_identity_columns.sql
+│       ├── 20260222100000_add_signal_prepared_column.sql
+│       ├── 20260222200000_add_auth_and_identity_match_columns.sql
+│       ├── 20260223000000_add_coupon_code_column.sql
+│       ├── 20260223100000_add_nws_score_column.sql
+│       ├── 20260223200000_update_hushh_coins_default.sql
+│       ├── 20260223300000_fix_investor_profiles_constraints.sql
+│       ├── 20260224000000_add_hushh_agents_tables.sql
+│       ├── 20260313000000_fix_investor_profiles_public_defaults.sql
+│       ├── 20260317000000_fix_investor_profiles_constraints_v2.sql
+│       ├── 20260330183000_remove_onboarding_country_defaults.sql
+│       ├── 20260408081500_add_financial_link_status_to_onboarding_data.sql
+│       ├── 20260409113000_add_account_purge_rpc.sql
+│       ├── 20260409183000_secure_public_investor_profile_rpc.sql
+│       ├── 20260410120000_expand_public_profile_rpc_for_unconfirmed_slugs.sql
+│       ├── 20260410153000_drop_removed_hushh_agents_artifacts.sql
+│       └── schema.sql
+├── tailwind.config.js
+├── tests
+│   ├── addressNormalization.test.ts
+│   ├── analyticsRealtimeRoute.test.ts
+│   ├── auth.test.ts
+│   ├── authCallback.test.ts
+│   ├── authHost.test.ts
+│   ├── authSessionProvider.test.ts
+│   ├── clientConfig.test.ts
+│   ├── coinsCreditNotification.test.ts
+│   ├── coinsDeductionNotification.test.ts
+│   ├── deleteAccountApiRoute.test.ts
+│   ├── deleteAccountModal.test.ts
+│   ├── deleteAccountPageCopy.test.ts
+│   ├── deleteAccountShared.test.ts
+│   ├── deleteUserAccountService.test.ts
+│   ├── emailInlineAssets.test.ts
+│   ├── emailMime.test.ts
+│   ├── emailTemplateBuilders.test.ts
+│   ├── googleAnalytics.test.ts
+│   ├── googleWalletLocalRoute.test.ts
+│   ├── investorProfileWalletUi.test.ts
+│   ├── locationData.test.ts
+│   ├── locationRefreshService.test.ts
+│   ├── locationService.test.ts
+│   ├── locationSharedCache.test.ts
+│   ├── loginSignupOAuth.test.ts
+│   ├── mainWebRuntime.test.ts
+│   ├── metricsSendReportRoute.test.ts
+│   ├── metricsService.test.ts
+│   ├── metricsSummaryRoute.test.ts
+│   ├── nda.test.ts
+│   ├── ndaIntegration.test.ts
+│   ├── ndaNotification.test.ts
+│   ├── nwsScoreNotification.test.ts
+│   ├── oauthStart.test.ts
+│   ├── onboardingFlow.test.ts
+│   ├── onboardingPrefill.test.ts
+│   ├── plaidIntegration.test.ts
+│   ├── plaidRedirect.test.ts
+│   ├── plaidSandboxLive.test.ts
+│   ├── protectedRoute.test.ts
+│   ├── publicInvestorProfileApiRoute.test.ts
+│   ├── publicInvestorProfilePage.test.ts
+│   ├── publicInvestorProfileService.test.ts
+│   ├── publicInvestorProfileSqlContract.test.ts
+│   ├── step3AddressLogic.test.ts
+│   ├── step4LocationLogic.test.ts
+│   ├── step6DobLogic.test.ts
+│   ├── step6LocationFlow.test.ts
+│   ├── walletApiRoutes.test.ts
+│   ├── walletPass.test.ts
+│   └── walletPreviewModal.test.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vercel.json
+├── vite.config.ts
+└── vitest.config.ts
