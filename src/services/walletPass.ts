@@ -250,8 +250,9 @@ export async function requestHushhGoldPass(
     });
 
     if (!response.ok) {
+      const errorBody = await response.text();
       throw new Error(
-        await readWalletError(response, "Wallet pass generation failed"),
+        `Wallet pass generation failed (${response.status}): ${errorBody}`,
       );
     }
 
@@ -260,8 +261,7 @@ export async function requestHushhGoldPass(
 
     return { blob, filename };
   } catch (e) {
-    console.warn("Wallet API not available, error:", e);
-
+    console.warn("Wallet API not available:", e);
     throw new Error("Wallet pass generation is temporarily unavailable.");
   }
 }

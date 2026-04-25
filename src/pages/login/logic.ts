@@ -183,7 +183,7 @@ export const useLoginLogic = (): LoginLogic => {
   );
 
   /* Apple OAuth — prevent double-clicks */
-const isAuthConfigured = false;
+const isAuthConfigured = Boolean(import.meta.env.VITE_SUPABASE_URL);
 const handleGoogleSignIn = useCallback(async () => {
   if (isSigningIn) return;
 
